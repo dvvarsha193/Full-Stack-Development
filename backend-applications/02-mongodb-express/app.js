@@ -82,6 +82,9 @@ app.post("/api/v1/books", (req, res) => {
 app.get("/api/v1/books", (req, res) => {
   const category = req.query.category;
   const query = category ? { category } : {};
+  if (!db) {
+    return res.status(200).json({ message: "Books fetched successfully", data: sampleBooks });
+  }
   db.collection("books")
     .find(query)
     .toArray()
@@ -98,6 +101,10 @@ app.get("/api/v1/books", (req, res) => {
 // Get a single book by ID - GET /api/v1/books/:id
 app.get("/api/v1/books/:id", (req, res) => {
   const bookId = req.params.id;
+  if (!db) {
+    const book = sampleBooks.find(b => b._id === bookId) || sampleBooks[0];
+    return res.status(200).json({ message: "Book fetched successfully", data: book });
+  }
   db.collection("books")
     .findOne({ _id: new ObjectId(bookId) })
     .then((book) => {
