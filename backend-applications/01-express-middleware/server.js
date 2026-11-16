@@ -134,3 +134,6 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
   console.log(`Express Middleware Server running on http://localhost:${PORT}`);
 });
+
+
+export default app;

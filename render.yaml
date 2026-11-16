@@ -2,6 +2,7 @@ services:
   - type: web
     name: full-stack-01-express-middleware
     runtime: node
+    plan: free
     rootDir: backend-applications/01-express-middleware
     buildCommand: npm install
     startCommand: npm start
@@ -12,6 +13,7 @@ services:
   - type: web
     name: full-stack-02-mongodb-express
     runtime: node
+    plan: free
     rootDir: backend-applications/02-mongodb-express
     buildCommand: npm install
     startCommand: npm start
@@ -24,6 +26,7 @@ services:
   - type: web
     name: full-stack-03-mongoose-express
     runtime: node
+    plan: free
     rootDir: backend-applications/03-mongoose-express
     buildCommand: npm install
     startCommand: npm start
@@ -36,6 +39,7 @@ services:
   - type: web
     name: full-stack-04-mvc-express
     runtime: node
+    plan: free
     rootDir: backend-applications/04-mvc-express
     buildCommand: npm install
     startCommand: npm start
@@ -48,6 +52,7 @@ services:
   - type: web
     name: full-stack-05-mvc-auth
     runtime: node
+    plan: free
     rootDir: backend-applications/05-mvc-authentication
     buildCommand: npm install
     startCommand: npm start
@@ -62,6 +67,7 @@ services:
   - type: web
     name: full-stack-06-template-engine-ejs
     runtime: node
+    plan: free
     rootDir: backend-applications/06-template-engine-ejs
     buildCommand: npm install
     startCommand: npm start
@@ -74,6 +80,7 @@ services:
   - type: web
     name: full-stack-07-mern-backend
     runtime: node
+    plan: free
     rootDir: mern-full-stack-application/backend
     buildCommand: npm install
     startCommand: npm start
