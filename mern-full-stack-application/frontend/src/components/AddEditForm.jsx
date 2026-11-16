@@ -10,7 +10,7 @@ function AddEditForm() {
   useEffect(() => {
     if (id) {
       async function fetchPost() {
-        const response = await fetch(`http://localhost:3000/api/v1/posts/${id}`);
+        const response = await fetch(`https://fs-16-mern-backend.vercel.app/api/v1/posts/${id}`);
         const data = await response.json();
         setTitle(data.data.title);
         setContent(data.data.content);
@@ -23,8 +23,8 @@ function AddEditForm() {
     e.preventDefault();
     const method = id ? "PUT" : "POST";
     const url = id
-      ? `http://localhost:3000/api/v1/posts/${id}`
-      : "http://localhost:3000/api/v1/posts";
+      ? `https://fs-16-mern-backend.vercel.app/api/v1/posts/${id}`
+      : "https://fs-16-mern-backend.vercel.app/api/v1/posts";
     await fetch(url, {
       method,
       headers: {

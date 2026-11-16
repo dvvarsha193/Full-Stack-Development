@@ -8,7 +8,7 @@ function Post({ post }) {
   };
 
   const handleDelete = async () => {
-    await fetch(`http://localhost:3000/api/v1/posts/${post._id}`, {
+    await fetch(`https://fs-16-mern-backend.vercel.app/api/v1/posts/${post._id}`, {
       method: "DELETE",
     });
     window.location.reload();
