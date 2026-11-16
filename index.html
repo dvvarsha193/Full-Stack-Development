@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Full Stack Development Lab - 17 Applications Showcase</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: rgba(22, 30, 49, 0.75);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.25);
+      --frontend-color: #06b6d4;
+      --backend-color: #10b981;
+      --mern-color: #8b5cf6;
+      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      padding-bottom: 80px;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.12) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.12) 0px, transparent 50%);
+      background-attachment: fixed;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    header {
+      padding: 50px 0 30px;
+      border-bottom: 1px solid var(--card-border);
+      margin-bottom: 40px;
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: var(--accent);
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #ffffff 40%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .meta-box {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 14px 18px;
+    }
+
+    .meta-box .label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+
+    .meta-box .val {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-top: 4px;
+    }
+
+    .meta-box .val a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin: 40px 0 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-title .count {
+      font-size: 0.85rem;
+      padding: 3px 10px;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.08);
+      color: var(--accent);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      backdrop-filter: blur(12px);
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(56, 189, 248, 0.4);
+      box-shadow: 0 10px 30px -10px var(--accent-glow);
+    }
+
+    .card-top {
+      margin-bottom: 16px;
+    }
+
+    .card-num {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .card h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+
+    .tag {
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-family: var(--font-mono);
+      color: #cbd5e1;
+    }
+
+    .tag.highlight {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: rgba(56, 189, 248, 0.3);
+      color: var(--accent);
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 14px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.15s ease;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #041226;
+    }
+
+    .btn-primary:hover {
+      background: #7dd3fc;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: #e2e8f0;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    footer {
+      margin-top: 60px;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--card-border);
+      padding-top: 30px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <div class="badge-pill">🎓 Vasireddy Venkatadri Institute of Technology (Autonomous)</div>
+      <h1>Full Stack Web Development Lab</h1>
+      <p style="color: var(--text-muted); max-width: 750px;">
+        Curated repository containing the complete implementation of all 17 lab practicals spanning ReactJS frontends, ExpressJS/MongoDB backends, and MERN full-stack architecture.
+      </p>
+
+      <div class="meta-grid">
+        <div class="meta-box">
+          <div class="label">Student Name</div>
+          <div class="val">Alamalu Dhana Varsha</div>
+        </div>
+        <div class="meta-box">
+          <div class="label">Regd. No.</div>
+          <div class="val">25BQ5A0504</div>
+        </div>
+        <div class="meta-box">
+          <div class="label">GitHub Repository</div>
+          <div class="val"><a href="https://github.com/dvvarsha193/Full-Stack-Development" target="_blank">dvvarsha193/Full-Stack-Development</a></div>
+        </div>
+        <div class="meta-box">
+          <div class="label">Total Practical Headings</div>
+          <div class="val">17 Completed</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    
+    <!-- SECTION 1: FRONTEND APPLICATIONS -->
+    <h2 class="section-title" style="color: var(--frontend-color);">
+      Frontend Applications <span class="count">9 Headings</span>
+    </h2>
+    <div class="grid">
+      <!-- 1 -->
+      <div class="card">
+        <div class="card-top">
+          <div class="card-num">01 / FRONTEND</div>
+          <h3>React HTML App</h3>
+          <p>Demonstrates creating roots and rendering basic HTML DOM elements dynamically in React with createRoot and render().</p>
+          <div class="tags">
+            <span class="tag highlight">React 18</span>
+            <span class="tag">Vite</span>
+            <span class="tag">createRoot</span>
+          </div>
+        </div>
+        <div class="card-actions">
+          <a class="btn btn-outline" href="frontend-applications/01-react-html-app/" target="_blank">Source Folder</a>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="card">
+        <div class="card-top">
+          <div class="card-num">02 / FRONTEND</div>
+          <h3>React JSX App</h3>
+          <p>Demonstrates JavaScript XML (JSX) embedding JavaScript expressions, variables, and tags into React elements.</p>
+          <div class="tags">
+            <span class="tag highlight">JSX</span>
+            <span class="tag">Expressions</span>
+            <span class="tag">React</span>
+          </div>
+        </div>
+        <div class="card-actions">
+          <a class="btn btn-outline" href="frontend-applications/02-react-jsx-app/" target="_blank">Source Folder</a>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="card">
+        <div class="card-top">
+          <div class="card-num">03 / FRONTEND</div>
+          <h3>React Multi Components</h3>
+          <p>Modular component structure with reusable Student cards nested between responsive Header and Footer components with props.</p>
+          <div class="tags">
+            <span class="tag highlight">Components</span>
+            <span class="tag">Props</span>
+            <span class="tag">Architecture</span>
+          </div>
+        </div>
+        <div class="card-actions">
+          <a class="btn btn-outline" href="frontend-applications/03-react-multi-components/" target="_blank">Source Folder</a>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="card">
+        <div class="card-top">
+          <div class="card-num">04 / FRONTEND</div>
+          <h3>React State & Events</h3>
+          <p>Interactive background color switcher demonstrating useState hook and click event handling functions.</p>
+          <div class="tags">
+            <span class="tag highlight">useState</span>
+            <span class="tag">onClick Events</span>
+            <span class="tag">Hooks</span>
+          </div>
+        </div>
+        <div class="card-actions">
+          <a class="btn btn-outline" href="frontend-applications/04-react-state-events/" target="_blank">Source Folder</a>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="card">
+        <div class="card-top">
+          <div class="card-num">05 / FRONTEND</div>
+          <h3>React Forms & Events</h3>
+          <p>Comprehensive controlled student form with text, number, radio buttons, dropdown selects, and validation handlers.</p>
+          <div class="tags">
+            <span class="tag highlight">Forms</span>
+            <span class="tag">Controlled Inputs</span>
+            <span class="tag">onSubmit</span>
+          </div>
+        </div>
+        <div class="card-actions">
+          <a class="btn btn-outline" href="frontend-applications/05-react-forms-events/" target="_blank">Source Folder</a>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="card">
+        <div class="card-top">
+          <div class="card-num">06 / FRONTEND</div>
+          <h3>React Conditional Rendering</h3>
+          <p>Dynamic authentication state toggle illustrating conditional JSX rendering using ternary and logical operators.</p>
+          <div class="tags">
+            <span class="tag highlight">Conditional</span>
+            <span class="tag">Ternary</span>
+            <span class="tag">Auth State</span>
+          </div>
+        </div>
+        <div class="card-actions">
+          <a class="btn btn-outline" href="frontend-applications/06-react-conditional-rendering/" target="_blank">Source Folder</a>
+        </div>
+      </div>
+
+      <!-- 7 -->
+      <div class="card">
+        <div class="card-top">
+          <div class="card-num">07 / FRONTEND</div>
+          <h3>React Rendering List</h3>
+          <p>Iterates and renders patient medical records into an HTML table with unique keys using JavaScript map() function.</p>
+          <div class="tags">
+            <span class="tag highlight">Array.map()</span>
+            <span class="tag">Table</span>
+            <span class="tag">Keys</span>
+          </div>
+        </div>
+        <div class="card-actions">
+          <a class="btn btn-outline" href="frontend-applications/07-react-rendering-list/" target="_blank">Source Folder</a>
+        </div>
+      </div>
+
+      <!-- 8 -->
+      <div class="card">
+        <div class="card-top">
+          <div class="card-num">08 / FRONTEND</div>
+          <h3>React Frontend CRUD</h3>
+          <p>Client-side expense management application with full Create, Read, Update, Delete, and dynamic total calculation.</p>
+          <div class="tags">
+            <span class="tag highlight">CRUD</span>
+            <span class="tag">Expense Tracker</span>
+            <span class="tag">State Management</span>
+          </div>
+        </div>
+        <div class="card-actions">
+          <a class="btn btn-outline" href="frontend-applications/08-react-frontend-crud/" target="_blank">Source Folder</a>
+        </div>
+      </div>
+
+      <!-- 9 -->
+      <div class="card">
+        <div class="card-top">
+          <div class="card-num">09 / FRONTEND</div>
+          <h3>React Router App</h3>
+          <p>Multi-page single page application navigation using react-router-dom with dynamic route parameters (/details/:id).</p>
+          <div class="tags">
+            <span class="tag highlight">React Router</span>
+            <span class="tag">useParams</span>
+            <span class="tag">SPA</span>
+          </div>
+        </div>
+        <div class="card-actions">
+          <a class="btn btn-outline" href="frontend-applications/09-react-router-app/" target="_blank">Source Folder</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 2: BACKEND APPLICATIONS -->
+    <h2 class="section-title" style="color: var(--backend-color);">
+      Backend Applications <span class="count">6 Headings</span>
+    </h2>
+    <div class="grid">
+      <!-- 10 -->
+      <div class="card">
+        <div class="card-top">
+          <div class="card-num">10 / BACKEND</div>
+          <h3>Express Middleware (Patient API)</h3>
+          <p>REST API serving /api/v1/patients implementing Application Logger, JSON parsing, Route Auth, 404 handler, and Centralized Error Handling.</p>
+          <div class="tags">
+            <span class="tag highlight">Express.js</span>
+            <span class="tag">Middleware Chain</span>
+            <span class="tag">/api/v1/patients</span>
+          </div>
+        </div>
+        <div class="card-actions">
+          <a class="btn btn-outline" href="backend-applications/01-express-middleware/" target="_blank">Source Folder</a>
+        </div>
+      </div>
+
+      <!-- 11 -->
+      <div class="card">
+        <div class="card-top">
+          <div class="card-num">11 / BACKEND</div>
+          <h3>MongoDB Express (Native Driver)</h3>
+          <p>Direct MongoDB connection using native MongoClient with full CRUD operations on /api/v1/books, category filtering, and error middleware.</p>
+          <div class="tags">
+            <span class="tag highlight">MongoClient</span>
+            <span class="tag">/api/v1/books</span>
+            <span class="tag">NoSQL CRUD</span>
+          </div>
+        </div>
+        <div class="card-actions">
+          <a class="btn btn-outline" href="backend-applications/02-mongodb-express/" target="_blank">Source Folder</a>
+        </div>
+      </div>
+
+      <!-- 12 -->
+      <div class="card">
+        <div class="card-top">
+          <div class="card-num">12 / BACKEND</div>
+          <h3>Mongoose Express</h3>
+          <p>Schema-based data modeling using Mongoose ODM for Movie collection on /api/v1/movies with asynchronous route controllers.</p>
+          <div class="tags">
+            <span class="tag highlight">Mongoose ODM</span>
+            <span class="tag">/api/v1/movies</span>
+            <span class="tag">Schema Validation</span>
+          </div>
+        </div>
+        <div class="card-actions">
+          <a class="btn btn-outline" href="backend-applications/03-mongoose-express/" target="_blank">Source Folder</a>
+        </div>
+      </div>
+
+      <!-- 13 -->
+      <div class="card">
+        <div class="card-top">
+          <div class="card-num">13 / BACKEND</div>
+          <h3>MVC Express</h3>
+          <p>Industry-standard Model-View-Controller architecture with separated routes, controllers, models, and config files for Movie resources.</p>
+          <div class="tags">
+            <span class="tag highlight">MVC Pattern</span>
+            <span class="tag">Clean Architecture</span>
+            <span class="tag">Express</span>
+          </div>
+        </div>
+        <div class="card-actions">
+          <a class="btn btn-outline" href="backend-applications/04-mvc-express/" target="_blank">Source Folder</a>
+        </div>
+      </div>
+
+      <!-- 14 -->
+      <div class="card">
+        <div class="card-top">
+          <div class="card-num">14 / BACKEND</div>
+          <h3>MVC Authentication</h3>
+          <p>Full secure authentication and authorization pipeline with password hashing, JWT bearer token verification, and protected Todo CRUD routes.</p>
+          <div class="tags">
+            <span class="tag highlight">JWT Auth</span>
+            <span class="tag">bcrypt</span>
+            <span class="tag">Protected Routes</span>
+          </div>
+        </div>
+        <div class="card-actions">
+          <a class="btn btn-outline" href="backend-applications/05-mvc-authentication/" target="_blank">Source Folder</a>
+        </div>
+      </div>
+
+      <!-- 15 -->
+      <div class="card">
+        <div class="card-top">
+          <div class="card-num">15 / BACKEND</div>
+          <h3>Template Engine EJS</h3>
+          <p>Server-side rendering (SSR) application utilizing Embedded JavaScript (EJS) templates, server-rendered forms, and product catalog management.</p>
+          <div class="tags">
+            <span class="tag highlight">EJS Templating</span>
+            <span class="tag">SSR</span>
+            <span class="tag">Product Catalog</span>
+          </div>
+        </div>
+        <div class="card-actions">
+          <a class="btn btn-outline" href="backend-applications/06-template-engine-ejs/" target="_blank">Source Folder</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 3: MERN FULL STACK APPLICATION -->
+    <h2 class="section-title" style="color: var(--mern-color);">
+      MERN Full Stack Application <span class="count">2 Parts</span>
+    </h2>
+    <div class="grid">
+      <!-- 16 -->
+      <div class="card">
+        <div class="card-top">
+          <div class="card-num">16 / MERN FULL STACK</div>
+          <h3>MERN Backend (API Server)</h3>
+          <p>Node.js & Express RESTful API with MongoDB Mongoose database connection, CORS handling, Morgan logging, and CRUD on /api/v1/posts.</p>
+          <div class="tags">
+            <span class="tag highlight">Node / Express</span>
+            <span class="tag">MongoDB</span>
+            <span class="tag">REST API</span>
+          </div>
+        </div>
+        <div class="card-actions">
+          <a class="btn btn-outline" href="mern-full-stack-application/backend/" target="_blank">Backend Source</a>
+        </div>
+      </div>
+
+      <!-- 17 -->
+      <div class="card">
+        <div class="card-top">
+          <div class="card-num">17 / MERN FULL STACK</div>
+          <h3>MERN Frontend (React Client)</h3>
+          <p>Single Page Application built with React and Vite connecting to the backend API, allowing creating, updating, and viewing posts in real time.</p>
+          <div class="tags">
+            <span class="tag highlight">React Client</span>
+            <span class="tag">REST Integration</span>
+            <span class="tag">Vite</span>
+          </div>
+        </div>
+        <div class="card-actions">
+          <a class="btn btn-outline" href="mern-full-stack-application/frontend/" target="_blank">Frontend Source</a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>Vasireddy Venkatadri Institute of Technology &bull; Full Stack Web Development Lab</p>
+      <p style="margin-top: 6px;">Created for <strong>Alamalu Dhana Varsha (25BQ5A0504)</strong> &bull; GitHub: <a href="https://github.com/dvvarsha193" style="color: var(--accent);">@dvvarsha193</a></p>
+    </div>
+  </footer>
+
+</body>
+</html>

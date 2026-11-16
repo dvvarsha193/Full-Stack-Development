@@ -1,0 +1,55 @@
+name: Deploy Full-Stack Lab Showcase to GitHub Pages
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build All Frontend Apps
+        run: |
+          for dir in frontend-applications/*/; do
+            if [ -f "$dir/package.json" ]; then
+              echo "Building $dir ..."
+              (cd "$dir" && npm install && npm run build)
+            fi
+          done
+          if [ -f "mern-full-stack-application/frontend/package.json" ]; then
+            echo "Building mern frontend ..."
+            (cd "mern-full-stack-application/frontend" && npm install && npm run build)
+          fi
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
