@@ -1,0 +1,84 @@
+services:
+  - type: web
+    name: full-stack-01-express-middleware
+    runtime: node
+    rootDir: backend-applications/01-express-middleware
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+
+  - type: web
+    name: full-stack-02-mongodb-express
+    runtime: node
+    rootDir: backend-applications/02-mongodb-express
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: MONGO_URI
+        sync: false
+
+  - type: web
+    name: full-stack-03-mongoose-express
+    runtime: node
+    rootDir: backend-applications/03-mongoose-express
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: MONGO_URI
+        sync: false
+
+  - type: web
+    name: full-stack-04-mvc-express
+    runtime: node
+    rootDir: backend-applications/04-mvc-express
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: MONGO_URI
+        sync: false
+
+  - type: web
+    name: full-stack-05-mvc-auth
+    runtime: node
+    rootDir: backend-applications/05-mvc-authentication
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+
+  - type: web
+    name: full-stack-06-template-engine-ejs
+    runtime: node
+    rootDir: backend-applications/06-template-engine-ejs
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: MONGO_URI
+        sync: false
+
+  - type: web
+    name: full-stack-07-mern-backend
+    runtime: node
+    rootDir: mern-full-stack-application/backend
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: MONGO_URI
+        sync: false

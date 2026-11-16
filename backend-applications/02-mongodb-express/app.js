@@ -2,11 +2,11 @@ import express from "express";
 import { MongoClient, ObjectId } from "mongodb";
 
 const app = express();
-const port = 7000;
+const port = process.env.PORT || 7000;
 
 // MongoDB connection
-const mongoUrl = "mongodb://admin:admin123@localhost:27017";
-const databaseName = "library_db";
+const mongoUrl = process.env.MONGO_URI || "mongodb://admin:admin123@localhost:27017";
+const databaseName = process.env.DB_NAME || "library_db";
 
 const client = new MongoClient(mongoUrl);
 

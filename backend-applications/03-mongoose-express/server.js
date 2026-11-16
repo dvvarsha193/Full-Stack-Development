@@ -10,7 +10,7 @@ const port = process.env.PORT || 8080;
 app.use(express.json());
 
 // MongoDB connection
-const mongoUrl = process.env.MONGO_FULL_URI;
+const mongoUrl = process.env.MONGO_URI || process.env.MONGO_FULL_URI || "mongodb://localhost:27017/movies_db";
 
 try {
   await mongoose.connect(mongoUrl);
