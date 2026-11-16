@@ -17,7 +17,8 @@ try {
   console.log("Connected to MongoDB");
 } catch (err) {
   console.error("Failed to connect to MongoDB", err);
-  process.exit(1);
+  // process.exit(1);
+  console.log('Running without live MongoDB');
 }
 
 const movieSchema = new mongoose.Schema({

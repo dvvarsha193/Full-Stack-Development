@@ -1,3 +1,7 @@
+import path from "path";
+import { fileURLToPath } from "url";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 import express from "express";
 import {
   createProduct,
@@ -19,6 +23,7 @@ app.use(express.json());
 const PORT = process.env.PORT || 9500;
 
 app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
 
 //CRUD operations for products

@@ -8,7 +8,8 @@ const connectDB = async (mongoUri, dbName) => {
     console.log("Connected to MongoDB");
   } catch (err) {
     console.error("Error connecting to MongoDB:", err);
-    process.exit(1);
+    // process.exit(1);
+    console.log('Running without live MongoDB');
   }
 };
 

@@ -19,12 +19,27 @@ await client
   })
   .catch((err) => {
     console.error("Failed to connect to MongoDB", err);
-    process.exit(1);
+    // process.exit(1);
+    console.log('Running without live MongoDB');
   });
 
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+
+app.get("/", (req, res) => {
+  res.json({
+    message: "MongoDB Express API is running",
+    endpoints: {
+      getAllBooks: "GET /api/v1/books",
+      getBookById: "GET /api/v1/books/:id",
+      createBook: "POST /api/v1/books",
+      updateBook: "PUT /api/v1/books/:id",
+      deleteBook: "DELETE /api/v1/books/:id"
+    }
+  });
+});
 
 //CRUD API endpoints
 // Create a new book - POST /api/v1/books
