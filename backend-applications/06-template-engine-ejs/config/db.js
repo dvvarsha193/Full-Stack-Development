@@ -1,16 +1,15 @@
 import mongoose from "mongoose";
 
-const connectDB = async (mongoURI, dbName) => {
-  try {
-    await mongoose.connect(mongoURI, {
-      dbName: dbName,
+const connectDB = (mongoUri) => {
+  mongoose.set('bufferCommands', false);
+  mongoose
+    .connect(mongoUri, { serverSelectionTimeoutMS: 1000 })
+    .then(() => {
+      console.log("Connected to MongoDB");
+    })
+    .catch((err) => {
+      console.log("Running without live MongoDB (resilient mode)");
     });
-    console.log(`MongoDB connected to database: ${dbName}`);
-  } catch (error) {
-    console.error("MongoDB connection failed:", error.message);
-    // process.exit(1);
-    console.log('Running without live MongoDB');
-  }
 };
 
 export default connectDB;

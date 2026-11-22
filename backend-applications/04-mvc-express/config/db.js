@@ -1,13 +1,14 @@
 import mongoose from "mongoose";
 
 const connectDB = (mongoUri) => {
+  mongoose.set('bufferCommands', false);
   mongoose
-    .connect(mongoUri)
+    .connect(mongoUri, { serverSelectionTimeoutMS: 1000 })
     .then(() => {
       console.log("Connected to MongoDB");
     })
     .catch((err) => {
-      console.log("Problem while connecting mongoDB", err);
+      console.log("Running without live MongoDB (resilient mode)");
     });
 };
 

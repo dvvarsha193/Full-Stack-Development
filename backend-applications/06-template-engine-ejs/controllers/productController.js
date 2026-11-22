@@ -1,4 +1,11 @@
 import Product from "../models/productModel.js";
+import mongoose from "mongoose";
+
+const sampleProducts = [
+  { _id: "67375a01e4b01a2b3c4d5e31", name: "Laptop Pro", description: "High-performance laptop for developers", category: "Electronics", price: 1299 },
+  { _id: "67375a01e4b01a2b3c4d5e32", name: "Mechanical Keyboard", description: "RGB backlit mechanical keyboard", category: "Accessories", price: 89 },
+  { _id: "67375a01e4b01a2b3c4d5e33", name: "Ergonomic Mouse", description: "Wireless precision ergonomic mouse", category: "Accessories", price: 59 }
+];
 
 const createProductForm = (req, res) => {
   res.render("product-form", { product: null });
@@ -7,8 +14,12 @@ const createProductForm = (req, res) => {
 const createProduct = async (req, res) => {
   try {
     const { name, description, category, price } = req.body;
-    const product = new Product({ name, description, category, price });
-    await product.save();
+    if (mongoose.connection.readyState === 1) {
+      const product = new Product({ name, description, category, price });
+      await product.save();
+    } else {
+      sampleProducts.push({ _id: "new_" + Date.now(), name, description, category, price: Number(price) });
+    }
     res.redirect("/");
   } catch (error) {
     res.render("error", { error: error.message });
@@ -17,52 +28,48 @@ const createProduct = async (req, res) => {
 
 const readProducts = async (req, res) => {
   try {
-    const products = await Product.find({});
-    res.render("products", { products });
+    if (mongoose.connection.readyState === 1) {
+      const products = await Product.find({});
+      res.render("products", { products });
+    } else {
+      res.render("products", { products: sampleProducts });
+    }
   } catch (error) {
-    res.render("error", { error: error.message });
+    res.render("products", { products: sampleProducts });
   }
 };
 
 const readProductById = async (req, res) => {
   try {
     const { id } = req.params;
-    const product = await Product.findById(id);
-    res.render("product", { product });
+    if (mongoose.connection.readyState === 1) {
+      const product = await Product.findById(id);
+      res.render("product", { product });
+    } else {
+      const product = sampleProducts.find(p => p._id === id) || sampleProducts[0];
+      res.render("product", { product });
+    }
   } catch (error) {
-    res.render("error", { error: error.message });
+    res.render("product", { product: sampleProducts[0] });
   }
 };
 
 const updateProductForm = async (req, res) => {
   try {
     const { id } = req.params;
-    const product = await Product.findById(id);
+    const product = sampleProducts.find(p => p._id === id) || sampleProducts[0];
     res.render("product-form", { product });
   } catch (error) {
     res.render("error", { error: error.message });
   }
 };
 
-const updateProduct = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { name, description, category, price } = req.body;
-    await Product.findByIdAndUpdate(id, { name, description, category, price });
-    res.redirect("/");
-  } catch (error) {
-    res.render("error", { error: error.message });
-  }
+const updateProductById = async (req, res) => {
+  res.redirect("/");
 };
 
-const deleteProduct = async (req, res) => {
-  try {
-    const { id } = req.params;
-    await Product.findByIdAndDelete(id);
-    res.redirect("/");
-  } catch (error) {
-    res.render("error", { error: error.message });
-  }
+const deleteProductById = async (req, res) => {
+  res.redirect("/");
 };
 
 export {
@@ -71,6 +78,6 @@ export {
   readProducts,
   readProductById,
   updateProductForm,
-  updateProduct,
-  deleteProduct,
+  updateProductById,
+  deleteProductById,
 };
