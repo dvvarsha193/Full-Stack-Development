@@ -18,11 +18,15 @@ const sampleMovies = [
 mongoose.set('bufferCommands', false);
 const mongoUrl = process.env.MONGO_URI || process.env.MONGO_FULL_URI || "mongodb://localhost:27017/movies_db";
 
-try {
-  await mongoose.connect(mongoUrl, { serverSelectionTimeoutMS: 1000 });
-  console.log("Connected to MongoDB");
-} catch (err) {
-  console.log("Running with resilient in-memory fallback for MongoDB");
+if (process.env.MONGO_URI && !process.env.MONGO_URI.includes("localhost")) {
+  try {
+    await mongoose.connect(process.env.MONGO_URI, { serverSelectionTimeoutMS: 1000 });
+    console.log("Connected to MongoDB");
+  } catch (err) {
+    console.log("Running with resilient in-memory fallback for MongoDB");
+  }
+} else {
+  console.log("No cloud MongoDB URI provided; using in-memory store");
 }
 
 const movieSchema = new mongoose.Schema({

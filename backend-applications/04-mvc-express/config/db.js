@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 
 const connectDB = (mongoUri) => {
+  if (!mongoUri || mongoUri.includes("localhost")) {
+    console.log("No cloud MongoDB URI provided; using in-memory store");
+    return;
+  }
   mongoose.set('bufferCommands', false);
   mongoose
     .connect(mongoUri, { serverSelectionTimeoutMS: 1000 })
