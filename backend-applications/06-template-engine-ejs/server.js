@@ -33,6 +33,9 @@ app.get("/product-form", createProductForm);
 app.post("/add-product", createProduct);
 
 // Route to display all products
+app.get("/api/v1/health", (req, res) => {
+  res.json({ status: "healthy", dirname: __dirname, cwd: process.cwd() });
+});
 app.get("/", readProducts);
 // Route to display a single product
 app.get("/product/:id", readProductById);
